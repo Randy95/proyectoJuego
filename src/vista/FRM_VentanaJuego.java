@@ -1,0 +1,257 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package vista;
+
+
+import static java.applet.Applet.newAudioClip;
+import java.applet.AudioClip;
+import java.util.Random;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import modelo.Hilo;
+
+/**
+ *
+ * @author RandyGUTI
+ */
+//rd.nextInt(440-100+1)+100;
+public class FRM_VentanaJuego extends javax.swing.JFrame {
+
+    /**
+     * Creates new form FRM_VentanaJuego
+     */
+    Hilo hilo;
+    AudioClip sonido,disparo,acabado;
+    public boolean esDisparo,gameOver,kill=false;
+    Icon explosion;
+    public int x,y,velocidad=20,segundos;
+    FRM_GameOver frm_GameOver;
+    FRM_Inicio frm_Inicio;
+    
+    public FRM_VentanaJuego(FRM_GameOver frm_GameOver,FRM_Inicio frm_Inicio) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        this.gameOver=false;
+        this.frm_GameOver=frm_GameOver;
+        this.frm_Inicio=frm_Inicio;
+        hilo = new Hilo(this);
+        hilo.start();
+        sonidoAvion();
+        situarBala();
+        disparo=newAudioClip(getClass().getResource("../audio/disparo.wav"));
+        acabado= newAudioClip(getClass().getResource("../audio/explosion.wav"));
+        explosion=new ImageIcon(getClass().getResource("../images/explosion.gif"));
+    }
+    public void sonidoAvion()
+    {
+      sonido=newAudioClip(getClass().getResource("../audio/avioneta.wav"));
+      sonido.loop();
+    }
+    public void moverFondo()
+    {
+      if(jl_Fondo.getX()>-960)
+         this.jl_Fondo.setLocation(jl_Fondo.getX()-10, jl_Fondo.getY());
+      else
+          this.jl_Fondo.setLocation(0, jl_Fondo.getY());
+    }
+     public void moverObstaculo()
+    {
+        if(jl_enemigo1.getX()>-144)
+        {
+           this.jl_enemigo1.setLocation(jl_enemigo1.getX()-velocidad, jl_enemigo1.getY());
+           
+        }
+        else
+        {   
+            this.jl_enemigo1.setVisible(true);
+            this.jl_enemigo1.setIcon(new ImageIcon(getClass().getResource("../images/Harrier.gif")));
+            this.jl_enemigo1.setLocation(1000, (int) (Math.random()*(400-100+1)+100));
+            velocidad+=5;
+        }
+    }
+    public void tiempo()
+    {
+        segundos++;
+      if(segundos==10)
+      {
+        this.jl_Tiempo.setText((Integer.parseInt(jl_Tiempo.getText())+1)+"");
+        segundos=0;
+      }
+    }
+    public void comprobarColision()
+    {
+       if(jl_Avion.getX()+100>jl_enemigo1.getX() && jl_enemigo1.getX()+140>jl_Avion.getX() && (jl_Avion.getY()+70>jl_enemigo1.getY() && jl_enemigo1.getY()+100>jl_Avion.getY()))
+       {
+          System.out.println("hubo una colision");
+          jl_Avion.setIcon(explosion);
+          acabado.play();
+          sonido.stop();
+          gameOver=true;
+          if(this.gameOver)
+          {
+            this.frm_GameOver.puntaje(this.obtenerPuntaje());
+            this.dispose();
+            this.frm_GameOver.setVisible(true);
+            this.frm_GameOver.efectoGameOver();
+          }
+       }   
+    }
+    public void detenerEnemigo()
+    {
+      jl_enemigo1.setLocation(x, y);
+    }
+    public boolean eliminarEnemigo()
+    {
+      if(jl_Bala.getX()+60>jl_enemigo1.getX() && jl_Bala.getY()>jl_enemigo1.getY() && jl_Bala.getY()<jl_enemigo1.getY()+130)
+      {
+          x=jl_enemigo1.getX();
+          y=jl_enemigo1.getY();
+          System.out.println("enemigo colisionado");
+          jl_enemigo1.setIcon(explosion);
+          acabado.play();
+          situarBala();
+          this.jl_enemigo1.setLocation(900, jl_enemigo1.getY());   
+          kill=true;
+      }
+      return kill;
+    }
+    public void subirAvion()
+    {
+     if(jl_Avion.getY()>10)
+     {
+      jl_Avion.setLocation(jl_Avion.getX(),jl_Avion.getY()-40);
+      situarBala();
+     }
+    }
+    public void bajarAvion()
+    { 
+     if(jl_Avion.getY()+100<510)
+     {
+      jl_Avion.setLocation(jl_Avion.getX(),jl_Avion.getY()+10);
+      situarBala();
+     }
+    }
+    public void situarBala()
+    {
+       this.jl_Bala.setLocation(jl_Avion.getX()+100,jl_Avion.getY()+40);
+       this.jl_Bala.setVisible(false);
+    }
+    public void disparoMisil()
+    {
+      if(jl_Bala.getX()+jl_Bala.getWidth()<980)
+      {
+         this.jl_Bala.setVisible(true);
+         this.jl_Bala.setLocation(jl_Bala.getX()+100,jl_Bala.getY());
+      }
+      else if(eliminarEnemigo())
+      {
+         situarBala();
+         esDisparo=false;
+      }
+      else
+      {
+        situarBala();
+        esDisparo=false;
+      }
+    }
+    public int obtenerPuntaje()
+    {
+      return Integer.parseInt(jl_Tiempo.getText());
+    }
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jl_Avion = new javax.swing.JLabel();
+        jl_enemigo1 = new javax.swing.JLabel();
+        jl_Bala = new javax.swing.JLabel();
+        jl_Tiempo = new javax.swing.JLabel();
+        jl_Fondo = new javax.swing.JLabel();
+
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setPreferredSize(new java.awt.Dimension(960, 540));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                formComponentHidden(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
+        getContentPane().setLayout(null);
+
+        jl_Avion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/avioneta1.gif"))); // NOI18N
+        jl_Avion.setPreferredSize(new java.awt.Dimension(200, 120));
+        getContentPane().add(jl_Avion);
+        jl_Avion.setBounds(-30, 70, 200, 100);
+
+        jl_enemigo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Harrier.gif"))); // NOI18N
+        jl_enemigo1.setPreferredSize(new java.awt.Dimension(180, 100));
+        getContentPane().add(jl_enemigo1);
+        jl_enemigo1.setBounds(730, 170, 160, 140);
+
+        jl_Bala.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/misil2.gif"))); // NOI18N
+        getContentPane().add(jl_Bala);
+        jl_Bala.setBounds(110, 90, 74, 24);
+
+        jl_Tiempo.setFont(new java.awt.Font("Gentium Basic", 1, 36)); // NOI18N
+        jl_Tiempo.setForeground(new java.awt.Color(0, 102, 0));
+        jl_Tiempo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jl_Tiempo.setText("0");
+        getContentPane().add(jl_Tiempo);
+        jl_Tiempo.setBounds(850, 10, 90, 40);
+
+        jl_Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondo.jpg"))); // NOI18N
+        getContentPane().add(jl_Fondo);
+        jl_Fondo.setBounds(0, 0, 1906, 540);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+      disparo.play(); 
+      this.esDisparo=true;
+    }//GEN-LAST:event_formMouseClicked
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+       if(evt.getKeyCode()==38)
+       {
+         subirAvion();
+       }
+       if(evt.getKeyCode()==40)
+           bajarAvion();
+    }//GEN-LAST:event_formKeyPressed
+
+    private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
+        this.frm_Inicio.setVisible(true);
+    }//GEN-LAST:event_formComponentHidden
+
+    /**
+     * @param args the command line arguments
+     */
+    
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JLabel jl_Avion;
+    private javax.swing.JLabel jl_Bala;
+    private javax.swing.JLabel jl_Fondo;
+    private javax.swing.JLabel jl_Tiempo;
+    public javax.swing.JLabel jl_enemigo1;
+    // End of variables declaration//GEN-END:variables
+}
