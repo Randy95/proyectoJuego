@@ -70,7 +70,7 @@ public class FRM_VentanaJuego extends javax.swing.JFrame {
             this.jl_enemigo1.setVisible(true);
             this.jl_enemigo1.setIcon(new ImageIcon(getClass().getResource("../images/Harrier.gif")));
             this.jl_enemigo1.setLocation(1000, (int) (Math.random()*(400-20+1)+20));
-            velocidad+=5;
+            velocidad+=3;
         }
     }
     public void tiempo()

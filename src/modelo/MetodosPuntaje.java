@@ -56,8 +56,6 @@ public class MetodosPuntaje {
         {
             if(arrayList.get(contador).getNombre().equals(nombre))
             {
-//                arregloInformacionConsultada[0]=arrayEstudiantes.get(contador).getNombrecompleto();
-//                arregloInformacionConsultada[1]=arrayEstudiantes.get(contador).getDireccion();
                 existe=true;
             }
         
@@ -73,17 +71,8 @@ public class MetodosPuntaje {
         archivos.escribirInformacionEnElArchivo(arrayList.get(contador));
       }
     }
-    public ArrayList getArreglo()
+    public ArrayList<Puntaje> getArreglo()
     {
       return arrayList;
-    }
-    public String mostrarInformacion()
-    {
-      String msj="Nombre"+"      Puntaje\n\n";
-      for(int contador=0;contador<arrayList.size();contador++)
-      {
-        msj+=arrayList.get(contador).getInformacion()+"\n";
-      }
-      return msj;
     }
 }

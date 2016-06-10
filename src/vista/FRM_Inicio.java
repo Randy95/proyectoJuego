@@ -22,10 +22,12 @@ public class FRM_Inicio extends javax.swing.JFrame {
     FRM_GameOver frm_GameOver;
     FRM_Puntajes frm_Puntajes;
     FRM_Informacion frm_Informacion;
+    public MetodosPuntaje metodos;
     public FRM_VentanaJuego frm_VentanaJuego;
     
     public FRM_Inicio() {
         initComponents();
+        metodos=new MetodosPuntaje();
         frm_GameOver = new FRM_GameOver(this);
         frm_Puntajes = new FRM_Puntajes(this);
         frm_Informacion=new FRM_Informacion(this);
@@ -115,7 +117,7 @@ public class FRM_Inicio extends javax.swing.JFrame {
        this.sonido.stop();
        this.setVisible(false);
        this.frm_Puntajes.setVisible(true);
-       this.frm_Puntajes.llenarTextArea(this.frm_GameOver.metodos.mostrarInformacion());
+       this.frm_Puntajes.llenarTablaInicio();
     }//GEN-LAST:event_btn_RecordActionPerformed
 
     private void btn_InformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InformacionActionPerformed

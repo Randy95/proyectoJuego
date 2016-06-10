@@ -35,7 +35,7 @@ public class FRM_Informacion extends javax.swing.JFrame {
         jTextArea_Informacion = new javax.swing.JTextArea();
         jl_Fondo = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(600, 500));
+        setPreferredSize(new java.awt.Dimension(610, 500));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
                 formComponentHidden(evt);
@@ -52,12 +52,12 @@ public class FRM_Informacion extends javax.swing.JFrame {
         jTextArea_Informacion.setColumns(20);
         jTextArea_Informacion.setFont(new java.awt.Font("Franklin Gothic Demi", 0, 24)); // NOI18N
         jTextArea_Informacion.setRows(5);
-        jTextArea_Informacion.setText("La historia del juego se basa en la guerra mundial.\nTrata de llevar un avion de guerra lo más lejos posible,\nevitando que otros aviones que se aparezcan en su camino\nlo destruyan.\nLos comandos para poder usar la aplicación son:\n-Las teclas de arriba y abajo se usan para mover nuestro avión\nde guerra.\n-Con el click izquierdo del mouse podemos disparar un misil para \nderribar los aviones enemigos.\n\nEl puntaje del juego se basa en el tiempo que dure antes de que un\navión enemigo lo derribe, en ese momento el juego se acabaría, y se\nagregaría el puntaje a nuestro record de puntos.\n\n");
+        jTextArea_Informacion.setText("La historia del juego se basa en la guerra mundial.\nTrata de llevar un avión de guerra lo más lejos posible,\nevitando que otros aviones que se aparezcan en su camino\nlo destruyan.\nLos comandos para poder usar la aplicación son:\n-Las teclas de arriba y abajo se usan para mover nuestro avión\nde guerra.\n-Con el click izquierdo del mouse podemos disparar un misil para\nderribar los aviones enemigos.\nEl puntaje del juego se basa en el tiempo que dure antes de que un\navión enemigo lo derribe, en ese momento el juego se acabaría, y se\nagregaría el puntaje a nuestro record de puntos.\n");
         jTextArea_Informacion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jScrollPane1.setViewportView(jTextArea_Informacion);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(140, 150, 330, 200);
+        jScrollPane1.setBounds(10, 110, 570, 320);
 
         jl_Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/inicio.jpg"))); // NOI18N
         jl_Fondo.setPreferredSize(new java.awt.Dimension(600, 500));

@@ -5,6 +5,11 @@
  */
 package vista;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import modelo.MetodosPuntaje;
+import modelo.Puntaje;
+
 /**
  *
  * @author RandyGUTI
@@ -12,17 +17,34 @@ package vista;
 public class FRM_Puntajes extends javax.swing.JFrame {
 
     FRM_Inicio frm_Inicio;
+    DefaultTableModel modelo;
+    MetodosPuntaje metodos;
     
     public FRM_Puntajes(FRM_Inicio frm_Inicio) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(false);
         this.frm_Inicio=frm_Inicio;
+        this.metodos=this.frm_Inicio.metodos;
+        modelo=new DefaultTableModel();
+        this.jTable_Puntajes.setEnabled(false);
+        colocarTitulosTabla();
     }
-    public void llenarTextArea(String msj)
+    public void colocarTitulosTabla()
     {
-      this.jTextArea_Puntajes.setEditable(false);
-      this.jTextArea_Puntajes.setText(msj);
+      this.jTable_Puntajes.setModel(modelo);
+      modelo.addColumn("Nombre");
+      modelo.addColumn("Puntaje");
+    }
+    public void llenarTablaInicio()
+    {
+      for(int i=0;i<metodos.getArreglo().size();i++)
+      {
+         String[] arreglo=new String[2];
+         arreglo[0]=metodos.getArreglo().get(i).getNombre();
+         arreglo[1]=metodos.getArreglo().get(i).getPuntaje()+"";
+         modelo.addRow(arreglo);
+      }
     }
 
     /**
@@ -34,9 +56,9 @@ public class FRM_Puntajes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        JScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea_Puntajes = new javax.swing.JTextArea();
         jl_Titulo = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable_Puntajes = new javax.swing.JTable();
         jl_Fondo = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(600, 500));
@@ -47,20 +69,28 @@ public class FRM_Puntajes extends javax.swing.JFrame {
         });
         getContentPane().setLayout(null);
 
-        jTextArea_Puntajes.setColumns(20);
-        jTextArea_Puntajes.setFont(new java.awt.Font("Franklin Gothic Demi", 0, 18)); // NOI18N
-        jTextArea_Puntajes.setRows(5);
-        jTextArea_Puntajes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        JScrollPane1.setViewportView(jTextArea_Puntajes);
-
-        getContentPane().add(JScrollPane1);
-        JScrollPane1.setBounds(120, 140, 370, 270);
-
         jl_Titulo.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
         jl_Titulo.setForeground(new java.awt.Color(0, 0, 0));
         jl_Titulo.setText("         bEST sCORES");
         getContentPane().add(jl_Titulo);
         jl_Titulo.setBounds(80, 40, 450, 60);
+
+        jTable_Puntajes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTable_Puntajes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Nombre", "Puntaje"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable_Puntajes);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(130, 190, 340, 90);
 
         jl_Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/inicio.jpg"))); // NOI18N
         jl_Fondo.setPreferredSize(new java.awt.Dimension(600, 500));
@@ -81,8 +111,8 @@ public class FRM_Puntajes extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane JScrollPane1;
-    private javax.swing.JTextArea jTextArea_Puntajes;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable_Puntajes;
     private javax.swing.JLabel jl_Fondo;
     private javax.swing.JLabel jl_Titulo;
     // End of variables declaration//GEN-END:variables

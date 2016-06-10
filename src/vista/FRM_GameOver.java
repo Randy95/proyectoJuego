@@ -20,15 +20,15 @@ public class FRM_GameOver extends javax.swing.JFrame {
      */
     AudioClip sonido;
     FRM_Inicio inicio;
-    public MetodosPuntaje metodos;
+    MetodosPuntaje metodos;
     int puntaje;
     
     public FRM_GameOver(FRM_Inicio inicio) {
         initComponents();
         this.inicio=inicio;
+        this.metodos=this.inicio.metodos;
         this.setVisible(false);
         this.setLocationRelativeTo(null);
-        metodos=new MetodosPuntaje();
     }
     public void efectoGameOver()
     {
