@@ -5,7 +5,7 @@
  */
 package vista;
 
-import java.util.ArrayList;
+
 import javax.swing.table.DefaultTableModel;
 import modelo.MetodosPuntaje;
 import modelo.Puntaje;
@@ -38,11 +38,11 @@ public class FRM_Puntajes extends javax.swing.JFrame {
     }
     public void llenarTablaInicio()
     {
-      for(int i=0;i<metodos.getArreglo().size();i++)
+      for(int i=0;i<metodos.getArray().size();i++)
       {
          String[] arreglo=new String[2];
-         arreglo[0]=metodos.getArreglo().get(i).getNombre();
-         arreglo[1]=metodos.getArreglo().get(i).getPuntaje()+"";
+         arreglo[0]=metodos.getArray().get(i).getNombre();
+         arreglo[1]=metodos.getArray().get(i).getPuntaje()+"";
          modelo.addRow(arreglo);
       }
     }
@@ -102,7 +102,6 @@ public class FRM_Puntajes extends javax.swing.JFrame {
 
     private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
         this.frm_Inicio.setVisible(true);
-        this.frm_Inicio.sonido.loop();
     }//GEN-LAST:event_formComponentHidden
 
     /**

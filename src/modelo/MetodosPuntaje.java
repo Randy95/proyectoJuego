@@ -6,6 +6,8 @@
 package modelo;
  
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
@@ -71,8 +73,16 @@ public class MetodosPuntaje {
         archivos.escribirInformacionEnElArchivo(arrayList.get(contador));
       }
     }
-    public ArrayList<Puntaje> getArreglo()
+    public ArrayList<Puntaje> getArray()
     {
       return arrayList;
     }
+    public void ordenar(){
+    Collections.sort(arrayList, new Comparator<Puntaje>() {
+	@Override
+	public int compare(Puntaje p1, Puntaje p2) {
+		return new Integer(p2.getPuntaje()).compareTo(new Integer(p1.getPuntaje()));
+	}
+    });
+    }  
 }

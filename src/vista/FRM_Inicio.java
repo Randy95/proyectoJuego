@@ -114,14 +114,13 @@ public class FRM_Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_JugarActionPerformed
 
     private void btn_RecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RecordActionPerformed
-       this.sonido.stop();
        this.setVisible(false);
        this.frm_Puntajes.setVisible(true);
+       this.metodos.ordenar();
        this.frm_Puntajes.llenarTablaInicio();
     }//GEN-LAST:event_btn_RecordActionPerformed
 
     private void btn_InformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InformacionActionPerformed
-        this.sonido.stop();
        this.setVisible(false);
        this.frm_Informacion.setVisible(true);
     }//GEN-LAST:event_btn_InformacionActionPerformed

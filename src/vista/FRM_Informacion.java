@@ -69,7 +69,6 @@ public class FRM_Informacion extends javax.swing.JFrame {
 
     private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
         this.frm_Inicio.setVisible(true);
-        this.frm_Inicio.sonido.loop();
     }//GEN-LAST:event_formComponentHidden
 
     /**
