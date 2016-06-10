@@ -23,35 +23,35 @@ public class Hilo extends Thread
       {
         try
         {
-          if(!ventana.gameOver)
-          {
-            sleep(100);
-            ventana.tiempo();
-            ventana.moverFondo();
-            ventana.comprobarColision();
-            if(!ventana.kill)
-               ventana.moverObstaculo();
+            if(!ventana.gameOver)
+            {
+              sleep(100);
+              ventana.tiempo();
+              ventana.moverFondo();
+              ventana.comprobarColision();
+              if(!ventana.kill)
+                 ventana.moverObstaculo();
+              else
+              {
+                ventana.detenerEnemigo();
+                 i++;
+                 if(i>10)
+                 {
+                   i=0;
+                   ventana.kill=false;
+                   ventana.jl_enemigo1.setVisible(false);
+                 }
+              }
+              if(ventana.esDisparo)
+              {
+                ventana.disparoMisil();
+                ventana.eliminarEnemigo();
+              }
+            }
             else
             {
-              ventana.detenerEnemigo();
-               i++;
-               if(i>10)
-               {
-                 i=0;
-                 ventana.kill=false;
-                 ventana.jl_enemigo1.setVisible(false);
-               }
+              this.stop();
             }
-            if(ventana.esDisparo)
-            {
-              ventana.disparoMisil();
-              ventana.eliminarEnemigo();
-            }
-          }
-          else
-          {
-            this.stop();
-          }
           
         }
         catch(Exception e)

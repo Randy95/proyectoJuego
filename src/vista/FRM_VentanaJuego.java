@@ -84,7 +84,7 @@ public class FRM_VentanaJuego extends javax.swing.JFrame {
     }
     public void comprobarColision()
     {
-       if(jl_Avion.getX()+100>jl_enemigo1.getX() && jl_enemigo1.getX()+140>jl_Avion.getX() && (jl_Avion.getY()+70>jl_enemigo1.getY() && jl_enemigo1.getY()+100>jl_Avion.getY()))
+       if(jl_Avion.getX()+150>jl_enemigo1.getX() && jl_enemigo1.getX()+140>jl_Avion.getX() && (jl_Avion.getY()+70>jl_enemigo1.getY() && jl_enemigo1.getY()+50>jl_Avion.getY()))
        {
           System.out.println("hubo una colision");
           jl_Avion.setIcon(explosion);
@@ -106,11 +106,10 @@ public class FRM_VentanaJuego extends javax.swing.JFrame {
     }
     public boolean eliminarEnemigo()
     {
-      if(jl_Bala.getX()+60>jl_enemigo1.getX() && jl_Bala.getY()>jl_enemigo1.getY() && jl_Bala.getY()<jl_enemigo1.getY()+130)
+      if(jl_Bala.getX()+60>jl_enemigo1.getX() && jl_Bala.getY()>jl_enemigo1.getY() && jl_Bala.getY()<jl_enemigo1.getY()+90)
       {
           x=jl_enemigo1.getX();
           y=jl_enemigo1.getY();
-          System.out.println("enemigo colisionado");
           jl_enemigo1.setIcon(explosion);
           acabado.play();
           situarBala();
@@ -172,9 +171,10 @@ public class FRM_VentanaJuego extends javax.swing.JFrame {
     private void initComponents() {
 
         jl_Avion = new javax.swing.JLabel();
+        jl_Score = new javax.swing.JLabel();
+        jl_Tiempo = new javax.swing.JLabel();
         jl_enemigo1 = new javax.swing.JLabel();
         jl_Bala = new javax.swing.JLabel();
-        jl_Tiempo = new javax.swing.JLabel();
         jl_Fondo = new javax.swing.JLabel();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -201,21 +201,27 @@ public class FRM_VentanaJuego extends javax.swing.JFrame {
         getContentPane().add(jl_Avion);
         jl_Avion.setBounds(-30, 70, 200, 100);
 
+        jl_Score.setFont(new java.awt.Font("Franklin Gothic Demi", 1, 18)); // NOI18N
+        jl_Score.setForeground(new java.awt.Color(0, 0, 0));
+        jl_Score.setText("PUNTAJE");
+        getContentPane().add(jl_Score);
+        jl_Score.setBounds(850, 0, 90, 30);
+
+        jl_Tiempo.setFont(new java.awt.Font("Gentium Basic", 1, 48)); // NOI18N
+        jl_Tiempo.setForeground(new java.awt.Color(0, 0, 0));
+        jl_Tiempo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jl_Tiempo.setText("0");
+        getContentPane().add(jl_Tiempo);
+        jl_Tiempo.setBounds(840, 30, 100, 50);
+
         jl_enemigo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Harrier.gif"))); // NOI18N
         jl_enemigo1.setPreferredSize(new java.awt.Dimension(180, 100));
         getContentPane().add(jl_enemigo1);
-        jl_enemigo1.setBounds(730, 170, 160, 140);
+        jl_enemigo1.setBounds(790, 200, 160, 100);
 
         jl_Bala.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/misil2.gif"))); // NOI18N
         getContentPane().add(jl_Bala);
         jl_Bala.setBounds(110, 90, 74, 24);
-
-        jl_Tiempo.setFont(new java.awt.Font("Gentium Basic", 1, 36)); // NOI18N
-        jl_Tiempo.setForeground(new java.awt.Color(0, 102, 0));
-        jl_Tiempo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jl_Tiempo.setText("0");
-        getContentPane().add(jl_Tiempo);
-        jl_Tiempo.setBounds(850, 10, 90, 40);
 
         jl_Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondo.jpg"))); // NOI18N
         getContentPane().add(jl_Fondo);
@@ -231,15 +237,16 @@ public class FRM_VentanaJuego extends javax.swing.JFrame {
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
        if(evt.getKeyCode()==38)
-       {
          subirAvion();
-       }
        if(evt.getKeyCode()==40)
            bajarAvion();
     }//GEN-LAST:event_formKeyPressed
 
     private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
+        this.hilo.stop();
+        this.dispose();
         this.frm_Inicio.setVisible(true);
+        this.frm_Inicio.sonido.loop();
     }//GEN-LAST:event_formComponentHidden
 
     /**
@@ -251,6 +258,7 @@ public class FRM_VentanaJuego extends javax.swing.JFrame {
     public javax.swing.JLabel jl_Avion;
     private javax.swing.JLabel jl_Bala;
     private javax.swing.JLabel jl_Fondo;
+    private javax.swing.JLabel jl_Score;
     private javax.swing.JLabel jl_Tiempo;
     public javax.swing.JLabel jl_enemigo1;
     // End of variables declaration//GEN-END:variables
